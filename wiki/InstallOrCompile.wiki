@@ -1,0 +1,26 @@
+#summary How to install or compile the servlet
+
+= The Already Built Servlet =
+
+The svn repo contains an already built .war servlet. You can, if you like, simply take it and install it in your HIP JBoss. 
+
+# Download the war file from http://horizon-holding-info-servlet.googlecode.com/svn/trunk/dist/items.war . 
+# Put it into your hzapp/jboss/default/deploy directory. 
+# Set up your Java data source (see below)
+# Restart Jboss. 
+
+If you want to set any config properties though, you're going to need to unzip the .war file (use a standard zip utility), edit the file in config/general.properties and then rezip it back up into a .war file. 
+
+= Ant =
+
+Alternately, you can use ant to recompile the code, package up the war file from source, and even install it in HIP for you. 
+
+Check out the project from svn, and then run "ant" in the project directory to compile, or "ant install" to actually stick it into Jboss for you. 
+
+For *both* tasks, however, you're going to have to tell ant where your JBoss is located (necessary for compiling, so it can find a javax.jar file needed, and for installing so it knows where to install!).  Either edit the build.xml to set the jboss.location property, or set it on the command line, to the location of your HIP 'jboss' directory, for instance:
+
+ant install -Djboss.location=/opt/dynix/hzapp/jboss
+
+= Setting up the data source =
+
+Either way, you're going to have to configure a data source in JBoss so the servlet can find your Horizon instance. 
