@@ -4,10 +4,10 @@
 
 The svn repo contains an already built .war servlet. You can, if you like, simply take it and install it in your HIP JBoss. 
 
-# Download the war file from http://horizon-holding-info-servlet.googlecode.com/svn/trunk/dist/items.war . 
-# Put it into your hzapp/jboss/server/default/deploy directory. 
-# Set up your Java data source (see below)
-# Restart Jboss. 
+  # Download the war file from http://horizon-holding-info-servlet.googlecode.com/svn/trunk/dist/items.war . 
+  # Put it into your hzapp/jboss/server/default/deploy directory. 
+  # Set up your Java data source (see below)
+  # Restart Jboss. 
 
 If you want to set any config properties though, you're going to need to unzip the .war file (use a standard zip utility), edit the file in config/general.properties and then rezip it back up into a .war file. 
 
