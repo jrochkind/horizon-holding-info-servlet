@@ -1,6 +1,6 @@
 #summary How to install or compile the servlet
 
-= The Already Built Servlet =
+= Install Already Built Servlet =
 
 The svn repo contains an already built .war servlet. You can, if you like, simply take it and install it in your HIP JBoss. 
 
@@ -11,7 +11,7 @@ The svn repo contains an already built .war servlet. You can, if you like, simpl
 
 If you want to set any config properties though, you're going to need to unzip the .war file (use a standard zip utility), edit the file in config/general.properties and then rezip it back up into a .war file. 
 
-= Ant =
+= Install or Compile with Ant =
 
 Alternately, you can use ant to recompile the code, package up the war file from source, and even install it in HIP for you. 
 
