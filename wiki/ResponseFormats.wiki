@@ -30,7 +30,7 @@ Specifically, it includes:
   * a 'dummy' leader with no real information. 
   * copyId in the 001
   * bibId in the 004
-  * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined).  
+  * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined).  A note attached to the copy as a whole in 852 $z. 
   * The type of call number mapped to MFHD values in indicator 1. The servlet will attempt to map to a standard value using the Horizon call_type.call_type_process column, but if it can't figure it out it'll leave the indicator blank. 
   * Run statements in 0 or more 866 (main run), 867 (supplement run), and/or 868 (index run). Each run can have a human-readable run-statement ($a) and/or a human readable note ($z).  No machine readable run information is provided, even to the extent MFHD allows, it's too hard to get it from Horizon. 
 
@@ -79,5 +79,5 @@ This is a marc-xml {{{<record>}}} element representing Marc Format for Holdings 
   * A dummy 'leader' that doesn't really say much
   * The containing copyID in 001
   * the containing bibID in 004
-  * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined), and specific itemID ($p). 
+  * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined), item-specific note ($z) and specific itemID ($p). 
   * The type of call number mapped to MFHD values in indicator 1. The servlet will attempt to map to a standard value using the Horizon call_type.call_type_process column, but if it can't figure it out it'll leave the indicator blank. 
