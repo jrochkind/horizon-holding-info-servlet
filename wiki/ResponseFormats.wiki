@@ -24,13 +24,14 @@ Note copy-level DAIA can NOT currently be provided by the servlet.
 
 === mfhd ===
 
-A marc-xml {{{<record>}}} element describing a Marc Format Holdings Data (MFHD) record with some details on the Horizon Copy.  This is a *very limited* and atypical MFHD response which only returns certain fields necessary to provide the info we want to provide. It will *only* include copy-specific information for one particular copy. 
+A marc-xml {{{<record>}}} element describing  Marc Format Holdings Data (MFHD) data (http://www.loc.gov/marc/holdings/echdhome.html) with some details on the Horizon Copy.  This is a *very limited* and atypical MFHD response which only returns certain fields necessary to provide the info we want to provide. It will *only* include copy-specific information for one particular copy. 
 
 Specifically, it includes:
   * a 'dummy' leader with no real information. 
   * copyId in the 001
   * bibId in the 004
   * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined).  
+  * The type of call number mapped to MFHD values in indicator 1. The servlet will attempt to map to a standard value using the Horizon call_type.call_type_process column, but if it can't figure it out it'll leave the indicator blank. 
   * Run statements in 0 or more 866 (main run), 867 (supplement run), and/or 868 (index run). Each run can have a human-readable run-statement ($a) and/or a human readable note ($z).  No machine readable run information is provided, even to the extent MFHD allows, it's too hard to get it from Horizon. 
 
 === ilsDetails ===
@@ -39,3 +40,44 @@ Additional details about the copy record, primarily including internal Horizon c
 http://purl.org/NET/ils-holdings-schema/1
 and
 http://purl.org/NET/ils-holdings-schema/1/schema
+
+== Item formats ==
+
+=== simpleAvailability ===
+
+The {{{dlf:simpleavailability}}} element from the dlfexpanded schema provides a human-readable availabilty message, as well as a coded availability status from one of four values: available; not available; possibly available; or unknown. 
+
+The servlet by default can only map very few standard Horizon item statuses to 'available' or 'not available' -- all other item statuses will show up as 'unknown'. 
+
+You can specify the proper mapping for all of your local item statuses in two ways, using config/general.properties.   
+
+  1.  Simply list all appropriate item statuses in holdings.dlf_status_available, holdings.dlf_status_not_available, holdings.dlf_status_possibly_available
+
+  2. Add a new column to your Horizon item_status table to hold the DLF status code. Specify this column in holdings.item_status_dlf_column
+
+=== ilsDetails ===
+
+Additional details about the copy record, primarily including internal Horizon codes for collection, location, item type, etc, are provided in a schema designed for this purpose. The schema can be found here:  
+http://purl.org/NET/ils-holdings-schema/1
+and
+http://purl.org/NET/ils-holdings-schema/1/schema
+
+=== daia ===
+
+A {http://www.gbv.de/wikis/cls/Document_Availability_Information_API_(DAIA) DAIA} record is provided solely to include a direct URL to make a HIP request for this item. This is sadly not yet pre-checked to see if a HIP request is actually possible, the URL is provided for all items.   
+
+The Servlet will try to guess the proper HIP request URL. If this is wrong, or you'd like to direct the user to a different non-HIP request form instead, you can set templates for creating a request url in config/general.properties holdings.request_uri_template
+
+DAIA requires a URI to represent a bib and an item.  Horizon doesn't really have anything like that, so we just make something up that won't actually resolve but will be unique. If you'd like to use different URIs to represent bibs or items, templates can be set in config/general.properties holdings.bib_uri_template, holdings.copy_uri_template, holdings.item_uri_template
+
+There is no established service in DAIA to represent this generic 'ILS request', so we use an extension URI to represent that service:  http://purl.org/NET/daia-ext/request
+
+=== mfhd ===
+
+This is a marc-xml {{{<record>}}} element representing Marc Format for Holdings Data (MFHD) data (http://www.loc.gov/marc/holdings/echdhome.html) expressing certain things *about this specific item*.  Note that this is an atypical use of MFHD, where there isn't usually a separate record per-item, here there is.  We only use certain fields necessary to express what we need about a specific item:
+
+  * A dummy 'leader' that doesn't really say much
+  * The containing copyID in 001
+  * the containing bibID in 004
+  * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined), and specific itemID ($p). 
+  * The type of call number mapped to MFHD values in indicator 1. The servlet will attempt to map to a standard value using the Horizon call_type.call_type_process column, but if it can't figure it out it'll leave the indicator blank. 
