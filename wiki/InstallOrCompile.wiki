@@ -1,5 +1,11 @@
 #summary How to install or compile the servlet
 
+= Pre-requisites =
+
+I use this servlet by directly installing it in the HIP JBoss (meaning Java 1.4.2 because that's what HIP runs) on a unix machine. 
+
+It should probably work a) on Windows, b) in your own Jboss/Tomcat/etc servlet environment, rather than in HIP's, and/or c) with more recent versions of Java. But I have not tested that, and am not sure what it would entail. But if there are initial problems, we can probably get them solved. 
+
 = Install Already Built Servlet =
 
 The svn repo contains an already built .war servlet. You can, if you like, simply take it and install it in your HIP JBoss. 
