@@ -1,0 +1,41 @@
+#summary Details on XML response formats
+
+= uchicago XML =
+
+This is an ad-hoc XML format developed at uchicago. It doesn't have a schema. It may make sense specifically for Horizon. It does include all the information you might possibly want in a concise and non-redundant fashion however. 
+
+
+= DLF ils-di 'dlfexpanded' =
+
+This is a format developed by the DLF ils-di task force, which is capable of describing Horizon copies (called 'holdingsets' in DLF terminology) and items, and their relationship to each other.  The schema is described here: http://www.diglib.org/architectures/ilsdi/schemas/1.1/dlfexpanded.xsd
+
+Note that while the schema allows you to describe the bib record that's mentioned, this servlet will not do that. The <dlf:bibliographic> element will always be empty, only providing the bibID but no further bib-level description. Description is found for copies (holdingsets) and items.  The servlet is not currently capable of providing a bib-level SimpleAvailability response, contrary to the suggestions of the DLF ils-di document. 
+
+Note also that depending on what you requested the dlfexpanded response may not include ALL copies and/or items related to the bib mentioned in <dlf:bibliographic>. See [RequestFormats]
+
+== holdingset formats ==
+
+A DLF 'holdingset' is the equivalent of a Horizon 'copy' record.  If copies are included in what was requested, DLF <holdingset>s will be included in the response for each copy. 
+Per the DLF spec, each <holdingset> element describes what items it contains, but the actual item descriptions are in a separate <items> element. 
+
+Each <holdingset> will have a metadata payload with one or more metadata formats describing that holdingset/copy specifically, as below. 
+
+Note copy-level DAIA can NOT currently be provided by the servlet. 
+
+=== mfhd ===
+
+A marc-xml <record> element describing a Marc Format Holdings Data (MFHD) record with some details on the Horizon Copy.  This is a *very limited* and atypical MFHD response which only returns certain fields necessary to provide the info we want to provide. It will *only* include copy-specific information for one particular copy. 
+
+Specifically, it includes:
+  * a 'dummy' leader with no real information. 
+  * copyId in the 001
+  * bibId in the 004
+  * An 852 field containing the user-displayable location name ($a), collection name ($b), call number ($k, $h, and $i combined).  
+  * Run statements in 0 or more 866 (main run), 867 (supplement run), and/or 868 (index run). Each run can have a human-readable run-statement ($a) and/or a human readable note ($z).  No machine readable run information is provided, even to the extent MFHD allows, it's too hard to get it from Horizon. 
+
+=== ilsDetails ===
+
+Additional details about the copy record, primarily including internal Horizon codes for collection, location, item type, etc, are provided in a schema designed for this purpose. The schema can be found here:  
+http://purl.org/NET/ils-holdings-schema/1
+and
+http://purl.org/NET/ils-holdings-schema/1/schema
