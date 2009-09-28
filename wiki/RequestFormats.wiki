@@ -88,8 +88,9 @@ The servlet includes metadata payloads in multiple formats to fully express all 
 By default, all available metadata formats will be included, but you can use query parameters to limit to only certain formats. This is useful if you don't need certain formats, to improve performance and limit response size. 
 
 Examples:
-
+{{{
   /items/bib/109&itemFormat=simpleAvailability,mfhd,ilsDetails,daia&copyFormat=mfhd,ilsDetails
   /items/bib=109&copyFormat=&itemFormat=simpleAvailability
+}}}
 
 Note that an empty string for copyFormat or itemFormat will mean that no metadata formats will be included for those holdings.  However, the copies and items will still be listed, just without any description, with only an id. 
