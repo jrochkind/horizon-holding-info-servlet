@@ -33,7 +33,7 @@ See also Setting Up Datasource below.
 
 = Setting up the data source =
 
-Either way, you're going to have to configure a data source in JBoss so the servlet can find your Horizon instance. By default the servlet uses a datasource named "horizon-items".  The datasource name the servlet looks for can be changed in config/general.properties
+Either way, you're going to have to configure a data source in JBoss so the servlet can find your Horizon instance. By default the servlet uses a datasource named "horizon-extras".  The datasource name the servlet looks for can be changed in config/general.properties
 
 You would typically set up a data source by creating or adding to a file named 11sybase-ds.xml (or 11mssql-ds.xml) in your jboss/server/default/deploy directory. Look at the existing Horizon data source in 10sybase-ds.xml (or 10-mssq-ds.xml) as a model. 
 
