@@ -1,5 +1,13 @@
 #summary How to install or compile the servlet
 
+= Full or Items-only =
+
+The full version of the servlet includes an items service and a borrowers service. You can also install a version with only the items service. 
+
+If you install the full version, ws.jar, services will be available at /ws/items and /ws/borrowers. 
+
+If you install the items-only version, items.jar, services will be available at /items.
+
 = Pre-requisites =
 
 I use this servlet by directly installing it in the HIP JBoss (meaning Java 1.4.2 because that's what HIP runs) on a unix machine. 
@@ -10,7 +18,7 @@ It should probably work a) on Windows, b) in your own Jboss/Tomcat/etc servlet e
 
 The svn repo contains an already built .war servlet. You can, if you like, simply take it and install it in your HIP JBoss. 
 
-  # Download the war file from http://horizon-holding-info-servlet.googlecode.com/svn/trunk/dist/items.war . 
+  # Download the war file from http://horizon-holding-info-servlet.googlecode.com/svn/trunk/dist/ws.war (full version) or http://horizon-holding-info-servlet.googlecode.com/svn/trunk/dist/items.war (items-only version). 
   # Put it into your hzapp/jboss/server/default/deploy directory. 
   # Set up your Java data source (see below)
   # Restart Jboss. 
@@ -24,6 +32,10 @@ See also Setting Up Datasource below.
 Alternately, you can use ant to recompile the code, package up the war file from source, and even install it in HIP for you. 
 
 Check out the project from svn, and then run "ant" in the project directory to compile, or "ant install" to actually stick it into Jboss for you. 
+
+For items-only version, you can run "ant items-install" (or "ant items-war" to make a war file in dist/ but not install it). 
+
+A default config properties file is in src/web/config/general.properties. You can edit this file before building to set properties. 
 
 For *both* tasks, however, you're going to have to tell ant where your JBoss is located (necessary for compiling, so it can find a javax.jar file needed, and for installing so it knows where to install!).  Either edit the build.xml to set the jboss.location property, or set it on the command line, to the location of your HIP 'jboss' directory, for instance:
 
