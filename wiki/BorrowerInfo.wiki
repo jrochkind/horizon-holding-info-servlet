@@ -6,7 +6,7 @@ The Servlet also includes a service for borrower information.
 
 The borrower service is only available if you install the full version of the servlet, not the item-information-only version. 
 
-Be sure to see Security Issues below. 
+Be sure to see [#Security_Issues] below. 
 
 
 
