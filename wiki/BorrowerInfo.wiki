@@ -31,7 +31,7 @@ No borrowers will be returned unless both identifier and pin match in a record.
 
 Any lookup except by borrower# can potentially return more than one borrower, depending on the nature of data in the Horizon db.  
 
-The response is just an ad-hoc XML format without a schema, for the moment. The top-level element is <borrowers>, which includes zero or more <borrower> elements, with certain limited information about each borrower. Right now included are borrower#, btype, location, relevant dates (in W3C Date Format), barcode(s), second_id, other_id(s). This will likely be expanded and perhaps formalized in a schema after we figure out what we need through 'cowpaths'. 
+The response is just an ad-hoc XML format without a schema, for the moment. The top-level element is {{{<borrowers>}}}, which includes zero or more {{{<borrower>}}} elements, with certain limited information about each borrower. Right now included are borrower#, btype, location, relevant dates (in W3C Date Format), barcode(s), second_id, other_id(s). This will likely be expanded and perhaps formalized in a schema after we figure out what we need through 'cowpaths'. 
 
 = Security Issues =
 
