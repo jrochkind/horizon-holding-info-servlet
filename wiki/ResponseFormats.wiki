@@ -68,7 +68,7 @@ A {http://www.gbv.de/wikis/cls/Document_Availability_Information_API_(DAIA) DAIA
 
 The Servlet will try to guess the proper HIP request URL. If this is wrong, or you'd like to direct the user to a different non-HIP request form instead, you can set templates for creating a request url in config/general.properties holdings.request_uri_template
 
-DAIA requires a URI to represent a bib and an item.  Horizon doesn't really have anything like that, so we just make something up that won't actually resolve but will be unique. If you'd like to use different URIs to represent bibs or items, templates can be set in config/general.properties holdings.bib_uri_template, holdings.copy_uri_template, holdings.item_uri_template
+DAIA requires a URI to represent a bib and an item.  Horizon doesn't really have anything like that, so we try to use URI's pointing back at the servlet itself.  If you'd like to use different URIs to represent bibs or items, templates can be set in config/general.properties holdings.bib_uri_template, holdings.copy_uri_template, holdings.item_uri_template
 
 There is no established service in DAIA to represent this generic 'ILS request', so we use an extension URI to represent that service:  http://purl.org/NET/daia-ext/request
 
