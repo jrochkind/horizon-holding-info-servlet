@@ -10,17 +10,24 @@ You can get the information returned in several different formats: a uchicago ad
 
 There are also several different URL formats that the servlet can accept:  REST-style, uchicago query paramater style, or DLF 'GetAvailability' query parameter style. 
 
+= Base URL =
+
+By default the servlet installs in JBoss at /ws.  And the items/holdings components is available at /ws/items.  
+
+So if your HIP instance is normally found at http://someserver.com/ipac20, then the base URL for the items-holdings service would be http://someserver.com/ws/holdings
+
+This JBoss 'mount point' is set in the source at src/metadata/ws-web.xml. 
 
 = Request types =
 
 == Fetch holdings for a bib ==
 
 REST style
-  * /items/bib/1111111
+  * /ws/holdings/bib/1111111
 uchicago query param
-  * /items?bib=1111111
+  * /ws/holdings?bib=1111111
 DLF getAvailability
-  * /items/availability?id=111111&id_type=bib
+  * /ws/holdings/availability?id=111111&id_type=bib
   * Note we only support one bibID included in id
 
 By default all items and/or copies attached to that bib will be included in result, but see includeItems parameter below. 
@@ -28,12 +35,12 @@ By default all items and/or copies attached to that bib will be included in resu
 == Fetch holdings for a copy ==
 
 REST style
-  * /items/copy/11111
+  * /ws/holdings/copy/11111
 uchicago query param
-  * /items?copy=11111
+  * /ws/holdings?copy=11111
 DLF getAvailability
-  * /items/availability?id=1111&id_type=copy
-  * id_type=copy isn't officially part of the DLF api, but we support it anyway in that style. Note we only support one copyId included in id. 
+  * /ws/holdings/availability?id=1111&id_type=copy
+  * id_type=copy isn't officially part of the DLF api, but we support it anyway in that style. 
 
 By default all items attached to this copy will be included in result, but see includeItems parameter below.  Only this copy will be included, not other copies attached to the same bib. 
 
@@ -42,15 +49,15 @@ By default all items attached to this copy will be included in result, but see i
 By itemID or barcode
 
 REST style
-  * /items/item/11111
-  * /items/barcode/39483434
+  * /ws/holdings/item/11111
+  * /ws/holdings/barcode/39483434
 uchicago query param
   * /items?item=11111
   * /items?barcode=39483434
 DLF getAvailability style
   * /items/availability?id=1111&id_type=item
   * /items/availability?id=39483434&id_type=barcode
-  * id_type=barcode isn't mentioned by DLF, but we support that style anyway. Note that only one id is supported in 'id' parameter. 
+  * id_type=barcode isn't mentioned by DLF, but we support that style anyway.
 
 Only the individual item referenced will be included in response, not other items attached to the same copy or bib. 
 
@@ -94,3 +101,15 @@ Examples:
 }}}
 
 Note that an empty string for copyFormat or itemFormat will mean that no metadata formats will be included for those holdings.  However, the copies and items will still be listed, just without any description, with only an id. 
+
+== Note on Multiple ID's ==
+
+All request formats can take multiple IDs, comma-seperated, eg:
+
+{{{
+  /ws/holdings/bib/109,110,111
+  /ws/holdings?copy=1111111,123,124
+  /ws/holdings/availability?id=111,222&id_type=bib
+}}}
+
+When querring for multiple items, XML response is wrapped in an aggregator element ("dlf:collection" or "results").  And if any or all of the IDs are not found, *no* error will be raised, the missing entities will simply not be included. Compare to single-id-request, where if the id is not found a 404 HTTP status will be returned. 
