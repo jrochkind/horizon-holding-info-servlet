@@ -15,15 +15,15 @@ Be sure to see [#Security_Issues] below.
 
 You can look up borrowers by borrower#, barcode, second_id (field in Horizon borrower), or other_id (field in BorrowerNotes). 
 
-/ws/borrowers/[borrower#]
-/ws/borrowers?second_id=[second_id]
-/ws/borrowers?barcode=[barcode]
-/ws/borrowers?other_id=[other_id]
+/ws/borrowers/(borrower#)
+/ws/borrowers?second_id=(second_id)
+/ws/borrowers?barcode=(barcode)
+/ws/borrowers?other_id=(other_id)
 
 You can also check a pin in one lookup by including pin, eg:
 
-/ws/borrowers/[borrower#]?pin=[pin]
-/ws/borrowers?barcode=[barcode]&pin=[pin]
+/ws/borrowers/(borrower#)?pin=(pin)
+/ws/borrowers?barcode=(barcode)&pin=(pin)
 
 No borrowers will be returned unless both identifier and pin match in a record. 
 
