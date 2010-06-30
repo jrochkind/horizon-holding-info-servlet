@@ -4,7 +4,7 @@
 
 The full version of the servlet includes an items service and a borrowers service. You can also install a version with only the items service. 
 
-If you install the full version, ws.jar, services will be available at /ws/items and /ws/borrowers. Be sure to see [BorrowerInfo#Security_Issues]
+If you install the full version, ws.jar, services will be available at /ws/items and /ws/borrowers. *Be sure to see [BorrowerInfo#Security_Issues]* to properly protect the borrower service. 
 
 If you install the items-only version, items.jar, services will be available at /items.
 
