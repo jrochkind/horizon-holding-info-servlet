@@ -35,7 +35,7 @@ The response is just an ad-hoc XML format without a schema, for the moment. The 
 
 = Security Issues =
 
-The borrower service includes access confidential information. It's important that it only be available to authorized clients, and that all communications take place in https so confidential information is not sent in the clear accross the network. 
+The borrower service includes access confidential information, including pin. It's important that it only be available to authorized clients, and that all communications take place in https so confidential information is not sent in the clear accross the network. 
 
 At present, there is no access control built into the servlet. Here at JHU we deploy the servlet with an apache front-end, and use apache directives to apply access restrictions.  Other methods of access control may be built into the servlet at a later date. 
 
@@ -46,7 +46,9 @@ Example apache access control:
 {{{
 <Location /ws/borrowers>
   # Restrict access to borrowers info to certain IPs,
-  # and to http auth login, and require https
+  # and to http auth login, and require https. HTTPS should
+  # be required as sensitive info will be transmitted over the
+  # network. 
   
   # require SSL for /ws/borrowers, redirect to SSL  
   RewriteEngine On
@@ -58,8 +60,10 @@ Example apache access control:
   Allow from x.x.x.x
   Allow from x.x.x.x
 
-  # Apache basic or digest auth features could also be used
-  # to require a password in addition to IP address auth. 
+  # Apache basic or digest auth features could, and probably
+  # should also be used to require a password in addition to
+  # IP address auth.  IP addr is spoofable by a client. 
+  # basic auth is secure ONLY if used over https. 
   
   
 </Location>
