@@ -57,10 +57,13 @@ You can specify the proper mapping for all of your local item statuses in two wa
 
 === ilsDetails ===
 
-Additional details about the copy record, primarily including internal Horizon codes for collection, location, item type, etc, are provided in a schema designed for this purpose. The schema can be found here:  
+Additional details about the item record, primarily including internal Horizon codes for collection, location, item type, etc, are provided in a schema designed for this purpose. The schema can be found here:  
 http://purl.org/NET/ils-holdings-schema/1
 and
 http://purl.org/NET/ils-holdings-schema/1/schema
+
+*note* you can add custom columns from Horizon items table to the ilsdetails response for an item, by editing the config/general.properties properties file to add a holdings.item.localInfo property with a comma-seperated list of columns from Horizon items table. These will each show up as a 'localInfo' element in the response. 
+
 
 === daia ===
 
