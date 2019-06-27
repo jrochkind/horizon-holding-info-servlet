@@ -726,11 +726,11 @@ public class ItemsServlet extends HttpServlet {
                 + "c.location, loc.name location_name, c.collection, col.pac_descr collection_descr, "
                 + "c.call call_number, c.call_type, ct.processor as call_type_hint, ct.descr as call_type_name, c.copy_number, c.pac_note "
                 + "from copy c, location loc, collection col, media_type mt, itype it, call_type ct "
-                + "where c.location *= loc.location "
-                + "and c.collection *= col.collection "
-                + "and c.media_type *= mt.media_type "
-                + "and c.itype *= it.itype "
-                + "and c.call_type *= ct.call_type "
+                + "where c.location = loc.location "
+                + "and c.collection = col.collection "
+                + "and c.media_type = mt.media_type "
+                + "and c.itype = it.itype "
+                + "and c.call_type = ct.call_type "
                 + "and staff_only != 1 "
                 + "and c." + key.column() + " = ?";
         
@@ -774,11 +774,11 @@ public class ItemsServlet extends HttpServlet {
           
         "FROM dbo.item i, dbo.location l, dbo.collection c, dbo.item_status ist, dbo.itype it, dbo.call_type ct " +
         "WHERE " +
-        "      i.location *= l.location " +
-        "  AND i.collection *= c.collection " +
-        "  AND i.item_status *= ist.item_status " +
-        "  AND i.itype *= it.itype " +
-        "  AND i.call_type *= ct.call_type " +
+        "      i.location = l.location " +
+        "  AND i.collection = c.collection " +
+        "  AND i.item_status = ist.item_status " +
+        "  AND i.itype = it.itype " +
+        "  AND i.call_type = ct.call_type " +
         "  AND i." + key.column() + " = ?" +
         "  AND i.staff_only=0");
       ArrayList result = new ArrayList();
